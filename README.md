@@ -11,7 +11,27 @@ para advogados que precisam:
 
 ---
 
-## 1. O que você precisa instalar (uma vez só)
+## 🚀 Jeito mais fácil: baixar o programa pronto (.exe, sem instalar Python)
+
+Se você não quer mexer com Python, use a versão pronta para Windows:
+
+1. Acesse a página de **Releases** do projeto:
+   <https://github.com/viniaraujocarvalho/pdf/releases>
+2. Abra a versão **"Conversor e Compactador de Petições (Windows)"**.
+3. Em **Assets**, clique em **`ConversorPeticoes.exe`** para baixar.
+4. Dê **dois cliques** no arquivo baixado para abrir o programa.
+
+> O Windows pode mostrar um aviso azul ("O Windows protegeu o computador").
+> Isso é normal para programas novos: clique em **"Mais informações"** e depois
+> em **"Executar assim mesmo"**.
+
+Mesmo nessa versão, para **converter Word em PDF** você ainda precisa ter o
+**LibreOffice** (gratuito) ou o **Microsoft Word** instalado — veja o item (c)
+abaixo. A **compactação de PDFs** já funciona sozinha.
+
+---
+
+## 1. O que você precisa instalar (uma vez só)  — modo "com Python"
 
 ### a) Python
 

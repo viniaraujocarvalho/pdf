@@ -1,0 +1,60 @@
+name: Gerar programa (.exe) para Windows
+
+# Monta automaticamente um arquivo .exe do Windows (que abre com dois cliques,
+# sem precisar instalar Python) e o disponibiliza para download.
+#
+# Roda sozinho a cada envio de código para o branch e também pode ser
+# disparado manualmente pelo botão "Run workflow" na aba "Actions" do GitHub.
+
+on:
+  push:
+    branches:
+      - claude/word-pdf-batch-compress-3hgls2
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar o Python (só na nuvem, para montar o programa)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar as bibliotecas necessárias
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyMuPDF docx2pdf pyinstaller
+
+      - name: Montar o arquivo .exe
+        run: |
+          pyinstaller --onefile --windowed --name ConversorPeticoes conversor_peticoes.py
+
+      - name: Guardar o .exe como "artefato" (download pela aba Actions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ConversorPeticoes-Windows
+          path: dist/ConversorPeticoes.exe
+
+      - name: Publicar o .exe em "Releases" (download mais fácil)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: programa-mais-recente
+          name: Conversor e Compactador de Petições (Windows)
+          body: |
+            Programa pronto para Windows. Baixe o arquivo
+            **ConversorPeticoes.exe** abaixo e abra com dois cliques.
+
+            Não é preciso instalar Python.
+
+            Para a conversão de Word em PDF, ainda é necessário ter o
+            LibreOffice (gratuito) OU o Microsoft Word instalado no computador.
+            A compactação de PDFs funciona sozinha.
+          files: dist/ConversorPeticoes.exe
